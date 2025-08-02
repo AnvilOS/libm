@@ -666,9 +666,10 @@ xword_t xint_div(xint_t q, xint_t r, const xint_t u, const xint_t v)
     {
         // Use the algorithm from exercise 16
         xword_t rem;
-        xint_div_1(q, &rem, u, v->data[0]);
+        xint_div_1(q, &rem, u, v->data?v->data[0]:0);
         resize(r, 1);
         r->data[0] = rem;
+        trim_zeroes(r);
         return 0;
     }
     int cmp = x_cmp(u->data, Un, v->data, Vn);
@@ -689,6 +690,7 @@ xword_t xint_div(xint_t q, xint_t r, const xint_t u, const xint_t v)
             q->size = 0;
         }
         xint_copy(r, u);
+        trim_zeroes(r);
         return 0;
     }
     
