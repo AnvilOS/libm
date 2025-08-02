@@ -13,23 +13,23 @@
 
 bool ContFrac::load_str(const char *str)
 {
-
     xint_t A;
     xint_t B;
     xint_t q;
     xint_t r;
 
-    xint_init(A);
-    xint_init(B);
-    xint_init(q);
-    xint_init(r);
-    
     // Check that there is a decimal point
     const char *p_dec = strchr(str, '.');
     if (p_dec == NULL)
     {
         return false;
     }
+
+    xint_init(A);
+    xint_init(B);
+    xint_init(q);
+    xint_init(r);
+    
     char *end;
     long val = strtol(str, &end, 10);
     
