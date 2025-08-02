@@ -19,8 +19,8 @@ class ContFrac
 public:
     bool load_str(const char *str);
     unsigned long get_coeff(int ndx) { return ndx < coeff.size() ? coeff[ndx] : (unsigned long)-1; }
-    
-    
+    bool apply_matrix(unsigned long a, unsigned long b, unsigned long c, unsigned long d);
+        
 private:
     std::vector<unsigned long> coeff;
 };

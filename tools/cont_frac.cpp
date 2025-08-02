@@ -69,3 +69,65 @@ bool ContFrac::load_str(const char *str)
     
     return true;
 }
+
+bool ContFrac::apply_matrix(unsigned long a, unsigned long b, unsigned long c, unsigned long d)
+{
+    coeff.clear();
+    coeff.push_back(1);
+    coeff.push_back(5);
+    coeff.push_back(2);
+   
+    std::vector<unsigned long> output;
+    
+    int n = 0;
+    unsigned long tmp;
+
+    while (1)
+    {
+        // Can we output?
+        unsigned long left = c == 0 ? (unsigned long)-1 : a / c;
+        unsigned long right = d == 0 ? (unsigned long)-1 : b / d;
+        
+        if (left == right)
+        {
+            if (left == (unsigned long)-1)
+            {
+                break;
+            }
+            printf("Output %lu\n", left);
+            output.push_back(left);
+            unsigned long q = left;
+            
+            tmp = c;
+            c = a - c * q;
+            a = tmp;
+            tmp = d;
+            d = b - d * q;
+            b = tmp;
+            continue;
+        }
+        
+        // Grab the next coeff
+        unsigned long p = get_coeff(n++);
+        
+        if (p == (unsigned long)-1)
+        {
+            // p is inifinity
+            a = b;
+            c = d;
+        }
+        else
+        {
+            tmp = b;
+            b = a + b * p;
+            a = tmp;
+            tmp = d;
+            d = c + d * p;
+            c = tmp;
+        }
+        
+    }
+    
+    coeff = output;
+    return true;
+}
