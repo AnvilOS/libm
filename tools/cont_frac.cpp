@@ -11,6 +11,12 @@
 #include <string.h>
 #include <stdlib.h>
 
+bool ContFrac::load_coeffs(const std::vector<coeff_type> coeff)
+{
+    m_coeff = coeff;
+    return true;
+}
+
 bool ContFrac::load_str(const char *str)
 {
     xint_t A;
@@ -48,12 +54,12 @@ bool ContFrac::load_str(const char *str)
         xint_mul_ulong(B, B, 10);
     }
 
-    coeff.clear();
+    m_coeff.clear();
     while (1)
     {
         xint_div(q, r, A, B);
         //printf("%ld %d\n", cf.size(), q->data[0]);
-        coeff.push_back(q->data[0]);
+        m_coeff.push_back(q->data[0]);
         if (xint_is_zero(r))
         {
             break;
@@ -72,11 +78,6 @@ bool ContFrac::load_str(const char *str)
 
 bool ContFrac::apply_matrix(long int a, long int b, long int c, long int d)
 {
-    coeff.clear();
-    coeff.push_back(1);
-    coeff.push_back(5);
-    coeff.push_back(2);
-   
     std::vector<unsigned long> output;
     
     int n = 0;
@@ -125,9 +126,8 @@ bool ContFrac::apply_matrix(long int a, long int b, long int c, long int d)
             d = c + d * p;
             c = tmp;
         }
-        
     }
     
-    coeff = output;
+    m_coeff = output;
     return true;
 }
