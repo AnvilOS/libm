@@ -22,11 +22,11 @@ public:
     
     bool load_str(const char *str);
     bool load_coeffs(const std::vector<coeff_type> coeffs);
-    coeff_type get_coeff(int ndx) { return ndx < m_coeff.size() ? m_coeff[ndx] : (unsigned long)-1; }
+    coeff_type get_coeff(int ndx) { return ndx < m_coeff.size() ? m_coeff[ndx] : s_inf; }
     bool apply_matrix(long int a, long int b, long int c, long int d);
         
 private:
-    std::vector<unsigned long> m_coeff;
+    std::vector<coeff_type> m_coeff;
 };
 
 #include <stdio.h>
