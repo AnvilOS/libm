@@ -70,7 +70,7 @@ bool ContFrac::load_str(const char *str)
     return true;
 }
 
-bool ContFrac::apply_matrix(unsigned long a, unsigned long b, unsigned long c, unsigned long d)
+bool ContFrac::apply_matrix(long int a, long int b, long int c, long int d)
 {
     coeff.clear();
     coeff.push_back(1);
@@ -85,12 +85,12 @@ bool ContFrac::apply_matrix(unsigned long a, unsigned long b, unsigned long c, u
     while (1)
     {
         // Can we output?
-        unsigned long left = c == 0 ? (unsigned long)-1 : a / c;
-        unsigned long right = d == 0 ? (unsigned long)-1 : b / d;
+        unsigned long left = c == 0 ? s_inf : a / c;
+        unsigned long right = d == 0 ? s_inf : b / d;
         
         if (left == right)
         {
-            if (left == (unsigned long)-1)
+            if (left == s_inf)
             {
                 break;
             }
@@ -110,7 +110,7 @@ bool ContFrac::apply_matrix(unsigned long a, unsigned long b, unsigned long c, u
         // Grab the next coeff
         unsigned long p = get_coeff(n++);
         
-        if (p == (unsigned long)-1)
+        if (p == s_inf)
         {
             // p is inifinity
             a = b;
