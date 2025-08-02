@@ -7,3 +7,12 @@
 //
 
 #include "cont_frac.hpp"
+
+bool ContFrac::load_str(const char *str)
+{
+    
+    
+    
+    
+    return true;
+}

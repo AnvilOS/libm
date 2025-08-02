@@ -9,6 +9,6 @@
 #ifndef pi_25000_hpp
 #define pi_25000_hpp
 
-const char pi_25000[];
+extern const char *pi_25000;
 
 #endif // pi_25000_hpp
