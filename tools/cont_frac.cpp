@@ -78,10 +78,10 @@ bool ContFrac::load_str(const char *str)
 
 bool ContFrac::apply_matrix(long int a, long int b, long int c, long int d)
 {
-    std::vector<unsigned long> output;
+    std::vector<coeff_type> output;
     
     int n = 0;
-    unsigned long tmp;
+    long tmp;
 
     while (1)
     {
@@ -95,7 +95,7 @@ bool ContFrac::apply_matrix(long int a, long int b, long int c, long int d)
             {
                 break;
             }
-            printf("Output %lu\n", left);
+            //printf("Output %lu\n", left);
             output.push_back(left);
             unsigned long q = left;
             
@@ -109,7 +109,7 @@ bool ContFrac::apply_matrix(long int a, long int b, long int c, long int d)
         }
         
         // Grab the next coeff
-        unsigned long p = get_coeff(n++);
+        coeff_type p = get_coeff(n++);
         
         if (p == s_inf)
         {
@@ -129,5 +129,12 @@ bool ContFrac::apply_matrix(long int a, long int b, long int c, long int d)
     }
     
     m_coeff = output;
+    return true;
+}
+
+bool ContFrac::invert()
+{
+    // Inversion is accomplished by inserting a zero to the front of the coeffs
+    m_coeff.insert(m_coeff.begin(), 0);
     return true;
 }

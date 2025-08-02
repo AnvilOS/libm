@@ -24,6 +24,7 @@ public:
     bool load_coeffs(const std::vector<coeff_type> coeffs);
     coeff_type get_coeff(int ndx) { return ndx < m_coeff.size() ? m_coeff[ndx] : s_inf; }
     bool apply_matrix(long int a, long int b, long int c, long int d);
+    bool invert();
         
 private:
     std::vector<coeff_type> m_coeff;
