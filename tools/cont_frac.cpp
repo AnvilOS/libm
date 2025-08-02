@@ -8,6 +8,9 @@
 
 #include "cont_frac.hpp"
 
+#include <string.h>
+#include <stdlib.h>
+
 bool ContFrac::load_str(const char *str)
 {
 
@@ -20,8 +23,18 @@ bool ContFrac::load_str(const char *str)
     xint_init(B);
     xint_init(q);
     xint_init(r);
-
-    xint_from_dec_string(A, str);
+    
+    // Check that there is a decimal point
+    const char *p_dec = strchr(str, '.');
+    if (p_dec == NULL)
+    {
+        return false;
+    }
+    char *end;
+    long val = strtol(str, &end, 10);
+    
+    xint_assign_ulong(A, val);
+    xint_from_dec_string(A, end + 1);
 
     xint_assign_ulong(B, 10);
     while (1)
@@ -35,6 +48,7 @@ bool ContFrac::load_str(const char *str)
         xint_mul_ulong(B, B, 10);
     }
 
+    coeff.clear();
     while (1)
     {
         xint_div(q, r, A, B);
