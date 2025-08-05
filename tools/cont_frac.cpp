@@ -86,8 +86,8 @@ bool ContFrac::apply_matrix(long int a, long int b, long int c, long int d)
     while (1)
     {
         // Can we output?
-        unsigned long left = c == 0 ? s_inf : a / c;
-        unsigned long right = d == 0 ? s_inf : b / d;
+        coeff_type left = c == 0 ? s_inf : a / c;
+        coeff_type right = d == 0 ? s_inf : b / d;
         
         if (left == right)
         {
