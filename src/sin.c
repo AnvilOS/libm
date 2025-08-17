@@ -6,14 +6,12 @@
 // Please see the file 'LICENSE' for further information
 //
 
-int arg_reduce(double x, double red[2]);
-double _sin_reduced(double red[2]);
-double _cos_reduced(double red[2]);
+#include "libm_internal.h"
 
-double _Anvil_sin(double x)
+double sin(double x)
 {
     double x_red[2];
-    int n = arg_reduce(x, x_red);
+    int n = _arg_reduce(x, x_red);
     switch (n)
     {
         // As per table 2 in Ng's Arg reduction

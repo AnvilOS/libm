@@ -6,11 +6,12 @@
 // Please see the file 'LICENSE' for further information
 //
 
-int arg_reduce(double x, double red[2]);
-double _sin_reduced(double red[2]);
-double _cos_reduced(double red[2]);
+#include <stdint.h>
+#include <stdio.h>
 
-int arg_reduce(double x, double red[2])
+#include "libm_internal.h"
+
+int _arg_reduce(double x, double red[2])
 {
     red[0] = x;
     red[1] = 0.0;

@@ -6,9 +6,9 @@
 // Please see the file 'LICENSE' for further information
 //
 
-#include <math.h>
+#include "libm_internal.h"
 
-double _Anvil_sqrt(double x)
+double sqrt(double x)
 {
     // XXX: Need to handle nan, inf, neg and zero
     
