@@ -103,6 +103,7 @@ int xint_mod_1(xword_t *r, const xint_t u, xword_t v);
 int xint_highest_bit(xint_t x);
 xword_t xint_lshift(xint_t y, const xint_t x, int numbits);
 xword_t xint_rshift(xint_t y, const xint_t x, int numbits);
+xword_t xint_mask(xint_t y, const xint_t x, int numbits);
 
 #ifdef __cplusplus
 }

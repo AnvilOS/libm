@@ -820,6 +820,40 @@ xword_t xint_rshift(xint_t y, const xint_t x, int numbits)
     return 0;
 }
 
+xword_t xint_mask(xint_t y, const xint_t x, int numbits)
+{
+    // Calculate the shift
+    int shift_words = numbits / 32;
+    int shift_bits = numbits % 32;
+
+    int Xn = abs(x->size);
+
+    // If all of x will be shifted out ...
+    if (Xn <= shift_words)
+    {
+        // set y to 0
+        y->size = 0;
+        return 0;
+    }
+
+    resize(y, Xn - shift_words);
+
+    xword_t *X = x->data;
+    xword_t *Y = y->data;
+
+    if (shift_bits == 0)
+    {
+        x_move(Y, X + shift_words, Xn - shift_words);
+    }
+    else
+    {
+        x_rshift(Y, X + shift_words, Xn - shift_words, shift_bits);
+    }
+    trim_zeroes(y);
+
+    return 0;
+}
+
 static void trim_zeroes(xint_t u)
 {
     int Un = abs(u->size);
