@@ -22,11 +22,40 @@ uint32_t two_on_pi[] =
     0x7527bac7, 0xebe5f17b, 0x3d0739f7, 0x8a5292ea, 0x6bfb5fb1, 0x1f8d5d08
 };
 
+#define split_double(__dd, __sign, __f, __e)    \
+{                                               \
+    union double_bits value;                    \
+    value.dbl = __dd;                           \
+    __sign = value.uint >> 63;                  \
+    __e = ((value.uint >> 52) & 0x7ff) - 1023;  \
+    __f = value.uint & 0xfffffffffffff;         \
+    if (__e == -1023)                           \
+    {                                           \
+        ++__e;                                  \
+    }                                           \
+    else                                        \
+    {                                           \
+        __f |= 0x10000000000000;                \
+    }                                           \
+}
+
 int _arg_reduce(double x, double red[2])
 {
+    uint64_t N;
+    int M;
+    int sign;
+    split_double(x, sign, N, M);
+    M -= 52;
+    while ((N & 1) == 0)
+    {
+        N >>= 1;
+        ++M;
+    }
+    // Now we have x = N * 2 ^ M
+    printf("N=%llu M=%d\n", N, M); // N=2384185791015625   M=22
     
     
-    
+
     
     red[0] = x;
     red[1] = 0.0;
